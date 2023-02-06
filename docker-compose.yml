@@ -36,8 +36,6 @@ services:
     environment:
       NODE_ENV: production
       PORT: 5000
-    volumes:
-      - ./muscled-landing-pages:/usr/src/nextapp
     depends_on:
       - strapi
     networks:

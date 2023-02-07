@@ -1,32 +1,6 @@
 version: '3.8'
 
 services:
-  #strapi setup
-  strapi:
-    image: strapi/strapi
-    environment:
-      DATABASE_CLIENT: mongo
-      DATABASE_NAME: strapi
-      DATABASE_HOST: mongo
-      DATABASE_PORT: 27017
-      DATABASE_USERNAME: strapi
-      DATABASE_PASSWORD: strapi
-    volumes:
-      - ./app:/srv/app
-    ports:
-      - '1337:1337'
-    depends_on:
-      - mongo
-
-  mongo:
-    image: mongo
-    environment:
-      MONGO_INITDB_DATABASE: strapi
-      MONGO_INITDB_ROOT_USERNAME: strapi
-      MONGO_INITDB_ROOT_PASSWORD: strapi
-    volumes:
-      - ./data:/data/db
-
   # Node API Service
   nextapp:
     image: nazmulhawlader/muscled:v8
@@ -36,11 +10,65 @@ services:
     environment:
       NODE_ENV: production
       PORT: 5000
-    depends_on:
-      - strapi
     networks:
-      - muscled-new-network
+      - strapi
+  
+  strapi:
+    container_name: strapi
+    build: strapi
+    image: strapi:latest
+    restart: unless-stopped
+    env_file: ./strapi/.env
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: strapiDB
+      DATABASE_PORT: 5432
+      DATABASE_NAME: postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: Knowledge123
+      JWT_SECRET: 7HtXIDlsjK5NoLqHxAcuTA==
+      ADMIN_JWT_SECRET: ihlTnSg8CMWgmw2iKZoGKQ==
+      APP_KEYS: 0ri+DVZ0Uar/tabHMv6LuA==,grZ4/OJrKiqtwhWS5vs2UA==,Gfi4AQNV+ceJ0FiStgEmqQ==,OaKXQmr1Vr77QdS517+naQ==
+      API_TOKEN_SALT: lG6+fi/T+hEqqWSrw7W8Nw==
+      NODE_ENV: development
+
+    volumes:
+      - ./strapi/config:/opt/app/config
+      - ./strapi/src:/opt/app/src
+      - ./strapi/package.json:/opt/app/package.json
+      - ./strapi/yarn.lock:/opt/app/yarn.lock
+      - ./strapi/.env:/opt/app/.env
+      - ./strapi/public/uploads:/opt/app/public/uploads
+    ports:
+      - '1337:1337'
+    networks:
+      - strapi
+    depends_on:
+      - strapiDB
+
+  strapiDB:
+    container_name: strapiDB
+    platform: linux/amd64 #for platform error on Apple M1 chips
+    restart: unless-stopped
+    env_file: ./strapi/.env
+    image: postgres:12.0-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Knowledge123
+      POSTGRES_DB: postgres
+    volumes:
+      - strapi-data:/var/lib/postgresql/data/ #using a volume
+      #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
+
+    ports:
+      - '5432:5432'
+    networks:
+      - strapi
+
+volumes:
+  strapi-data:
 
 networks:
-  muscled-new-network:
+  strapi:
+    name: Strapi
     driver: bridge

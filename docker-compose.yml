@@ -39,7 +39,7 @@ services:
     restart: unless-stopped
     environment:
       DATABASE_CLIENT: postgres
-      DATABASE_HOST: http://178.128.224.193
+      DATABASE_HOST: strapidb
       DATABASE_PORT: 5432
       DATABASE_NAME: postgres
       DATABASE_USERNAME: postgres

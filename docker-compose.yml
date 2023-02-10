@@ -2,16 +2,16 @@ version: '3.8'
 
 services:
   # Node API Service
-  # nextapp:
-  #   image: nazmulhawlader/muscled:v8
-  #   ports:
-  #     - 5000:5000
-  #   container_name: next-nest-app
-  #   environment:
-  #     NODE_ENV: production
-  #     PORT: 5000
-  #   networks:
-  #     - strapi
+  nextapp:
+    image: nazmulhawlader/muscled:v8
+    ports:
+      - 5000:5000
+    container_name: next-nest-app
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+    networks:
+      - strapi
   
 
   strapiDB:
@@ -63,7 +63,7 @@ services:
       - strapi
     depends_on:
       - strapiDB
-      
+
 volumes:
   strapi-data:
 

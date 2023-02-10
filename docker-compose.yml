@@ -62,7 +62,7 @@ services:
     networks:
       - strapi
     depends_on:
-      - strapiDB
+      - strapidb
 
 volumes:
   strapi-data:

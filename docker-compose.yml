@@ -40,7 +40,7 @@ services:
     environment:
       DB_STRING: postgres://ihvpzrlb:Of8TXzT4OjCiejOyBozmePJaH8fOmcWA@kashin.db.elephantsql.com/ihvpzrlb
       DATABASE_CLIENT: postgres
-      DATABASE_HOST: strapidb
+      DATABASE_HOST: 178.128.224.193
       DATABASE_PORT: 5432
       DATABASE_NAME: postgres
       DATABASE_USERNAME: postgres

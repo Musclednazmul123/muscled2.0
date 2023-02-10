@@ -29,7 +29,7 @@ services:
       ADMIN_JWT_SECRET: ihlTnSg8CMWgmw2iKZoGKQ==
       APP_KEYS: 0ri+DVZ0Uar/tabHMv6LuA==,grZ4/OJrKiqtwhWS5vs2UA==,Gfi4AQNV+ceJ0FiStgEmqQ==,OaKXQmr1Vr77QdS517+naQ==
       API_TOKEN_SALT: lG6+fi/T+hEqqWSrw7W8Nw==
-      NODE_ENV: development
+      NODE_ENV: production
 
     # volumes:
     #   - ./strapi/config:/opt/app/config

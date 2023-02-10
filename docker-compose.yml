@@ -38,6 +38,7 @@ services:
     image: strapi:latest
     restart: unless-stopped
     environment:
+      DB_STRING: postgres://ihvpzrlb:Of8TXzT4OjCiejOyBozmePJaH8fOmcWA@kashin.db.elephantsql.com/ihvpzrlb
       DATABASE_CLIENT: postgres
       DATABASE_HOST: strapidb
       DATABASE_PORT: 5432
